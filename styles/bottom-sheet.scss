@@ -1,0 +1,22 @@
+@import "graphic-charter.scss";
+
+.bottomSheetContainer {
+    height: 100%;
+    width: 100%;
+    background-color: $general-background-color;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    top: 20px;
+    padding: 15px;
+}
+
+.line {
+    position: absolute;
+    width: 50px;
+    height: 4px;
+    background-color: grey;
+    margin: 6px;
+    border-radius: 2px;
+}

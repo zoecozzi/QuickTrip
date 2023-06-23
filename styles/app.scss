@@ -1,0 +1,31 @@
+@import "graphic-charter";
+
+.openPreferencesButton {
+    top: 50px;
+    right: 50px;
+    position: absolute;
+    background-color: red;
+    visibility: hidden
+}
+
+.blocListTitle {
+    width: 100%;
+    padding: 5px 0 2px 0;
+    text-align: left;
+}
+
+.blocList {
+    width: 100%;
+    background-color: $background-color;
+    height: 125px;
+    padding: 5px;
+    border: $border;
+    border-radius: $border-radius;
+}
+
+.blocListElement {
+    width: 100%;
+    padding: 10px;
+    border-bottom-width: $border;
+}
+    

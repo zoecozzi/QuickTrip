@@ -1,0 +1,144 @@
+@import "graphic-charter.scss";
+
+$iconSize: 60;
+$preferences-padding: 90px 30px 60px 30px;
+
+.preferencesScreen {
+    padding: $preferences-padding;
+    height: 100%;
+}
+
+.modal {
+    width: 100%;
+    height: 100%;
+    background-color: $general-background-color;
+    // justify-content: flex-end;
+    margin: 0;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+}
+
+.addToFavoriteButton {
+    padding: 10px 20px;
+    border-radius: 50px;
+    background-color: $background-color;
+    border: $border;
+}
+
+.favoritesList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.favoritesItem {
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 10px;
+    background-color: $background-color;
+    border: $border;
+    border-radius: $border-radius;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.favoritesContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.closePreferencesButton {
+    position: absolute;
+    top: 100px;
+}
+
+.favoritesIconContainer{
+    width: $iconSize;
+    height: $iconSize;
+    padding: 15px;
+    border-radius: $iconSize + px;
+}
+
+.favoritesIcon{
+    width: 100%;
+    height: 100%;
+}
+
+.descriptionContainer{
+    width: 200px;
+    display: flex;
+    padding: 10px;
+}
+
+.name{
+    font-weight: bold;
+}
+
+.address{
+    width: 100%;
+    font-weight: bold;
+}
+
+.deletingButton {
+    width: 25px;
+    height: 25px;
+}
+
+.colorContainer {
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 10;
+}
+
+.colorDot {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    border: $border;
+    margin: 5px 0;
+}
+
+.favoriteIcons {
+    width: 30px;
+    height: 30px;
+}
+
+/***** FOOTER ETAPE 1 ET 2 *****/
+
+.stageSelector {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.searchContainer {
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.stageSelectorValidateButton {
+    font-weight: bold;
+    color: $primary-color;
+}
+
+.stageSelectorCancelButton {
+    font-weight: bold;
+}
+
+.favoriteInput{
+    width: 240px;
+    padding: 10px;
+    background-color: $background-color;
+    border-radius: 15px;
+    border: $border;
+}
+
+
