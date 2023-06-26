@@ -2,8 +2,6 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Context } from '../../lib/context';
 import { View, Text, Image, TouchableOpacity, Dimensions } from 'react-native';
 import styles from "../../styles/preferences.scss";
-import Modal from "react-native-modal";
-import QuickButton from '../../components/button';
 
 const Main = ({ close, section }) => {
   const { storedFavoris, setStoredFavoris } = useContext(Context);

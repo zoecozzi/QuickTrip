@@ -1,5 +1,8 @@
 @import "graphic-charter";
 
+
+$iconSize: 60;
+
 .openPreferencesButton {
     top: 50px;
     right: 50px;
@@ -28,4 +31,34 @@
     padding: 10px;
     border-bottom-width: $border;
 }
-    
+
+.favoritesIcon {
+    width: 100%;
+    height: 100%;
+}
+
+.favoritesItem {
+    padding: 10px;
+    margin-top: 10px;}
+
+.favoritesContainer {
+    width: 100%;
+    flex-direction: row;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+
+.favoritesIconContainer {
+    width: $iconSize;
+    height: $iconSize;
+    padding: 15px;
+    border-radius: $iconSize + px;
+}
+
+.favoritesText{
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    padding-top: 5px;
+}
+
