@@ -85,7 +85,6 @@ export default function HomeScreen({functionToCall}) {
               </TouchableOpacity>}
             />
         </View>
-        <Text style={styles.blocListTitle}>Trafic</Text>
         <Trafic/>
         <View >
         </View>

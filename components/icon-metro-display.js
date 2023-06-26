@@ -41,7 +41,8 @@ const IconMetroDisplay = ({handleSelectedIconMetro}) => {
     <View style={styles.iconList}>
       {icons.map((icon, iconIndex) => {
 
-      const { hasDisruptions } = TrafficInfo({ lineCode: icon.lineCode });
+      const { hasDisruptions } = TrafficInfo({ lineCode: icon.lineCode })
+
       const { statusTraffic } = TrafficInfo({ lineCode: icon.lineCode });
       const selected = selectedIconIndex === iconIndex;
 
@@ -62,22 +63,33 @@ const IconMetroDisplay = ({handleSelectedIconMetro}) => {
               onRequestClose={handleCloseModal}
               animationType="slide"
             >
-              <View>
-                <Text>Informations sur les perturbations</Text>
+              <View style={
+              styles.perturbationContainer}>
+                <Text style={
+              styles.perturbationTitre}>Informations sur les perturbations</Text>
                 <FlatList
+
+                  style={
+              styles.ListeContainer}
                   data={statusTraffic}
                   renderItem={({ item }) => (
-                  <View>
-                      <Text>Status: {item.status}</Text>
-                      <Text>Cause: {item.cause}</Text>
-                      <Text>Severity: {item.severity.name}</Text>
-                      <Text>Message: {item.messages.map((message) => message.text)}</Text>
+                  <View style={
+              styles.listePerturbationContainer}>
+                      <Text style={
+              styles.status}>Status: {item.status}</Text>
+                      <Text style={
+              styles.cause}>Cause: {item.cause}</Text>
+                      <Text style={
+              styles.severity}>Severity: {item.severity.name}</Text>
+                      <Text style={
+              styles.message}>Message: {item.messages.map((message) => message.text)}</Text>
                   </View>
                   )}
                  keyExtractor={(item, index) => index.toString()}
                 />
                 <TouchableOpacity onPress={handleCloseModal}>
-                  <Text>Fermer</Text>
+                  <Text style={
+              styles.closeButton}>Fermer</Text>
                 </TouchableOpacity>
               </View>
             </Modal>

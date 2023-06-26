@@ -51,7 +51,6 @@ const TrafficInfo = ({ lineCode }) => {
   }, [lineCode]);
 
   return { hasDisruptions, statusTraffic };
-
 };
 
 

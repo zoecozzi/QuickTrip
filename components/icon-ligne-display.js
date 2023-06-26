@@ -43,7 +43,7 @@ const IconLigneDisplay = ({handleSelectedIconLigne}) => {
               styles.iconContainer,
               hasDisruptions ? styles.selectedIconContainer : null,
               selected ? styles.selectedIconContainer : null,
-            ]}
+    ]}
             onPress={() => handleIconPress(iconIndex)}
           >
             <Image key={iconIndex} source={icon.path} style={styles.icon} />
