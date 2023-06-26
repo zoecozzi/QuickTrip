@@ -64,5 +64,4 @@ const Main = ({ close, section }) => {
     </View>
   );
 };
-
 export default Main;

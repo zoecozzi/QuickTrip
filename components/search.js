@@ -95,5 +95,4 @@ const Search = ({functionToCall}) => {
       </View>
     );
 };
-
 export default Search;

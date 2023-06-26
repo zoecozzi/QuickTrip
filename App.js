@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useMemo } from 'react';
 import { Context } from './lib/context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -89,5 +90,3 @@ export default function App() {
     </Context.Provider>
   );
 }
-
-
