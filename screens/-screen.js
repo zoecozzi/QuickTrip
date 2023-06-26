@@ -37,7 +37,7 @@ export default function HomeScreen({functionToCall}) {
     console.log("sa",sa);
     setterAddresses(sa);
 
-    const sf = await getAsyncFavoris() || [];
+    const sf = await getAsyncFavoris();
     console.log("sf",sf);
     setterFavoris(sf);
     };
@@ -54,7 +54,7 @@ export default function HomeScreen({functionToCall}) {
 
   return (
     <Context.Provider value={value}>
-        <Search functionToCall={functionToCall}/>
+        <Search/>
         <View style={styles.favoritesContainer}>
             {storedFavoris.map((item, index) => (
             <View style={styles.favoritesItem} key={index}>

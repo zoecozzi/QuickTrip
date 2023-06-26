@@ -29,7 +29,6 @@ $iconSize: 60;
 .blocListElement {
     width: 100%;
     padding: 10px;
-    border-bottom-width: $border;
 }
 
 .favoritesIcon {
@@ -44,7 +43,6 @@ $iconSize: 60;
 .favoritesContainer {
     width: 100%;
     flex-direction: row;
-    justify-content: start;
     flex-wrap: wrap;
 }
 

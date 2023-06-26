@@ -9,7 +9,7 @@ const API_URL = 'https://api.navitia.io/v1';
 const API_KEY = '58d625cc-ab3e-48ca-8445-15df3daf7906';
 
 
-const Search = (functionToCall) => {
+const Search = ({functionToCall}) => {
   const [search, setSearch] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
@@ -62,6 +62,7 @@ const Search = (functionToCall) => {
       await setSearch(address.name);
       console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
       setShowFlatList(false);
+      functionToCall(address.name);
     } catch (error) {
       console.error(error);
     }
