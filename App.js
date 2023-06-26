@@ -8,6 +8,8 @@ import BottomSheet from './components/bottom-sheet';
 import QuickButton from './components/button';
 import Search from './components/search';
 import Trafic from './components/trafic';
+import TrafficReport from './components/trafficreport';
+import TrafficInfo from './components/traficInfo';
 import styles from '@styles/app.scss';
 import { FlatList, Text } from 'react-native';
 import { View } from 'react-native';
@@ -67,14 +69,15 @@ export default function App() {
           <Search/>
           <Text style={styles.blocListTitle}>Récents</Text>
           <View style={styles.blocList}>
-            <FlatList
-              data={storedAddresses.reverse()}
+            { <FlatList
+              data={storedAddresses}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => <Text style={styles.blocListElement}>{item.name}</Text>}
-            />
+            /> }
           </View>
           <Trafic/>
           <View >
+          <TrafficReport/>
           </View>
           
  
