@@ -8,15 +8,18 @@ import styles from "../styles/search.scss";
 const API_URL = 'https://api.navitia.io/v1';
 const API_KEY = '58d625cc-ab3e-48ca-8445-15df3daf7906';
 
-const Search = () => {
+
+const Search = (functionToCall) => {
   const [search, setSearch] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [addressNames, setAddressNames] = useState([]);
 
-  const [localStoredAddresses, setLocalStoredAddresses] = useState([]);
-  const { setStoredAddresses, storedAddresses } = useContext(Context);
-  const [selectedAddressName, setSelectedAddressName] = useState(''); // New state variable
-  const [showFlatList, setShowFlatList] = useState(false); // New state variable
+  const {setStoredAddresses, storedAddresses} = useContext(Context);
+  const [showFlatList, setShowFlatList] = useState(false);
+
+  useEffect(() => {
+    searchAddress();
+  }, [search, storedAddresses]);
+
 
   const searchAddress = async () => {
     try {
@@ -25,23 +28,21 @@ const Search = () => {
           Authorization: API_KEY,
         },
       });
-
       const data = await response.json();
       setSearchResults(data.places);
+      if(search.length==0)
+        setShowFlatList(false);
+      else
+        setShowFlatList(true);
 
-      const names = data.places?.map((place) => place.name);
-      setAddressNames(names);
-      setShowFlatList(true); // Show the FlatList
     } catch (error) {
       console.error(error);
     }
   };
 
-  useEffect(() => {
-    searchAddress();
-  }, [search, storedAddresses]);
 
-  const handleAddressSelect = async (address) => {
+  const selectAddress = async (address) => {
+
     try {
       let newList = [];
       if (storedAddresses?.length > 0) newList = [...storedAddresses, address];
@@ -58,40 +59,39 @@ const Search = () => {
       });
       
       await setStoredAddresses(newList);
-      await setLocalStoredAddresses([...newList]);
       await setSearch(address.name);
-      setShowFlatList(false); // Hide the FlatList after selecting an address
+      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+      setShowFlatList(false);
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <View style={styles.searchBarContainer}>
-      <ScrollView>
-      <View>
-      <TextInput
-        style={styles.searchBar}
-        placeholder="Rechercher une adresse"
-        onChangeText={(text) => setSearch(text)}
-        value={search}
-      />
-      {showFlatList && (
-        <FlatList
+      <View style={styles.searchBarContainer}>
+        <View >
+        <TextInput
+          style={styles.searchBar}
+          placeholder="Rechercher une adresse"
+          onChangeText={(text) => setSearch(text)}
+          value={search}
+        />
+        <View>
+        {showFlatList && (
+          <FlatList
           style={styles.searchResults}
           data={searchResults}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => handleAddressSelect(item)} style={styles.searchResult}>
-              <Text>{item.name}</Text>
-            </TouchableOpacity>
-          )}
-        />
-      )}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <TouchableOpacity onPress={() => selectAddress(item)} style={styles.searchResult}>
+                <Text>{item.name}</Text>
+              </TouchableOpacity>
+            )}
+          />
+        )}
+        </View>
+        </View>
       </View>
-      </ScrollView>
-    </View>
-  );
+    );
 };
-
 export default Search;

@@ -24,6 +24,7 @@ const Trajet = () => {
       });
       const data = await response.json();
       setSearchResults(data.journeys);
+      console.log(data.journeys);
     } catch (error) {
       console.error(error);
     }
