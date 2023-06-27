@@ -1,12 +1,9 @@
 import { FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
-import { Context } from '../lib/context';
+import { Context, API_KEY, API_URL} from '../lib/context';
 import Journey from './journey';
 
-const API_URL = 'https://api.navitia.io/v1'
-const API_KEY = '58d625cc-ab3e-48ca-8445-15df3daf7906'
-
-const Trajet = () => {
+const Trajet = ({from, to}) => {
   const [searchFrom, setSearchFrom] = useState('');
   const [searchTo, setSearchTo] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -24,7 +21,6 @@ const Trajet = () => {
       });
       const data = await response.json();
       setSearchResults(data.journeys);
-      console.log(data.journeys);
     } catch (error) {
       console.error(error);
     }
@@ -34,23 +30,52 @@ const Trajet = () => {
     findJourneys();
   }, [searchFrom, searchTo]);
 
+  function getCoordinates(obj) {
+    if ((typeof obj.address !== 'undefined') && obj.address.coord) {
+      return {
+        lat: obj.address.coord.lat,
+        lon: obj.address.coord.lon
+      };
+    } else if ((typeof obj.stop_area !== 'undefined') && obj.stop_area.coord) {
+      return {
+        lat: obj.stop_area.coord.lat,
+        lon: obj.stop_area.coord.lon
+      };
+    } else if ((typeof obj.administrative_region !== 'undefined') && obj.administrative_region.coord) {
+      return {
+        lat: obj.administrative_region.coord.lat,
+        lon: obj.administrative_region.coord.lon
+      };
+    } else {
+      return null;
+    }
+  }
+
   const selectedAddressData = searchResults.find(
     (place) => place.name === selectedAddress
   );
 
   const renderItem = ({ item }) => {
     return <Journey journey={item} />;
-    };
+  };
+
+  const updateDeparture = ({ place }) => {
+    console.log("Départ: " + place)
+  };
+
+  const updateArrival = ({ place }) => {
+    console.log("Arrivé: " + place)
+  };
 
   return (
     <View style={styles.container}>
-      
-      <Text>COUCOUUUUU MOI JE MANGE LA GLACE ET JE VAIS BIENTOT MANGER</Text>
       <FlatList
         data={storedAddresses}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => <Text>{item.name}</Text>}
       />
+      <Search functionToCall={updateDeparture} defaultValue={departure}/>
+      <Search functionToCall={updateArrival} defaultValue={"Salut"}/>
 
       <TextInput
         style={styles.input}

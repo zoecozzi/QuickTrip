@@ -34,11 +34,9 @@ export default function HomeScreen({functionToCall}) {
     const init = async () => {
       // setAsyncStoredAddresses([] );
     const sa = await getAsyncStoredAddresses();
-    console.log("sa",sa);
     setterAddresses(sa);
 
     const sf = await getAsyncFavoris();
-    console.log("sf",sf);
     setterFavoris(sf);
     };
 

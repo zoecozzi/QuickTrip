@@ -1,8 +1,7 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
-const API_URL = 'https://api.navitia.io/v1';
-const API_KEY = '58d625cc-ab3e-48ca-8445-15df3daf7906';
+import { Context, API_KEY, API_URL} from '../lib/context';
 
 const TrafficReport = ({lineCode}) => {
   const [statusTraffic, setStatusTraffic] = useState([]);

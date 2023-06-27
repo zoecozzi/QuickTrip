@@ -1,20 +1,29 @@
 import { FlatList, StyleSheet, Text, TextInput, View, TouchableOpacity, Button, ScrollView } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
-import { Context } from '../lib/context';
+import { Context, API_KEY, API_URL } from '../lib/context';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import styles from "../styles/search.scss";
 
-const API_URL = 'https://api.navitia.io/v1';
-const API_KEY = '58d625cc-ab3e-48ca-8445-15df3daf7906';
 
-
-const Search = ({functionToCall}) => {
-  const [search, setSearch] = useState('');
+const Search = ({functionToCall, defaultValue}) => {
+  const [search, setSearch] = useState(defaultValue);
   const [searchResults, setSearchResults] = useState([]);
 
   const {setStoredAddresses, storedAddresses} = useContext(Context);
   const [showFlatList, setShowFlatList] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleFocus = () => {
+    setIsFocused(true);
+    console.log("OK ON RENTRE");
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    console.log("OK ON SORT");
+    setShowFlatList(false);
+  };
 
   useEffect(() => {
     searchAddress();
@@ -30,10 +39,11 @@ const Search = ({functionToCall}) => {
       });
       const data = await response.json();
       setSearchResults(data.places);
-      if(search.length==0)
-        setShowFlatList(false);
-      else
+      if(search.length!=0&&isFocused)
         setShowFlatList(true);
+      else{
+        setShowFlatList(false);
+      }
 
     } catch (error) {
       console.error(error);
@@ -60,9 +70,8 @@ const Search = ({functionToCall}) => {
       
       await setStoredAddresses(newList);
       await setSearch(address.name);
-      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
       setShowFlatList(false);
-      functionToCall(address.name);
+      functionToCall(address);
     } catch (error) {
       console.error(error);
     }
@@ -72,6 +81,8 @@ const Search = ({functionToCall}) => {
       <View style={styles.searchBarContainer}>
         <View >
         <TextInput
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           style={styles.searchBar}
           placeholder="Rechercher une adresse"
           onChangeText={(text) => setSearch(text)}
@@ -80,8 +91,8 @@ const Search = ({functionToCall}) => {
         <View>
         {showFlatList && (
           <FlatList
-          style={styles.searchResults}
-          data={searchResults}
+            style={styles.searchResults}
+            data={searchResults}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
               <TouchableOpacity onPress={() => selectAddress(item)} style={styles.searchResult}>

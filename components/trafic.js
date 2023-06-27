@@ -32,7 +32,6 @@ export default function trafic() {
 
   return (
     <View>
-      <Text>Trafic</Text>
       <IconMetroDisplay handleSelectedIconMetro={handleSelectedIconMetro} />
       <IconRerDisplay handleSelectedIconRer={handleSelectedIconRer} />
       <IconLigneDisplay handleSelectedIconLigne={handleSelectedIconLigne} />

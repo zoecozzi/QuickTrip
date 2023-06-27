@@ -26,3 +26,51 @@
     width: 100%;
     height: 100%;
 }
+
+.closeButton{
+    padding: 10px 20px;
+    border-radius: 50px;
+    background-color: $background-color;
+    border: $border;
+    background-color: white;
+    align-items: center;
+    width: 100px;
+}
+
+.perturbationContainer{
+    width: 100%;
+    background-color: $background-color;
+    padding: 5px;
+    border: $border;
+    border-radius: $border-radius;
+    padding: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+    white-space: pre-line;
+}
+
+.listPerturbation{
+    padding-top: 50px;
+    width: 100%;
+    background-color: $general-background-color;
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 50px;
+    height: 100%;
+}
+
+.displayCloseButton{
+    align-items: center;
+}
+
+.titrePerturbation{
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.blocProbleme{
+    margin-top: 15px;
+}

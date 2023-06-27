@@ -15,7 +15,7 @@ const SearchAddress = ({ close, section }) => {
 
     return (
             <View style={styles.searchContainer}>
-                <Search />
+                <Search functionToCall={handleEditFavorite} defaultValue={""}/>
                 <View style={styles.stageSelector}>
                     <TouchableOpacity onPress={handleCancelAddFavorite}>
                     <Text style={styles.stageSelectorCancelButton}>{'<'}  Annuler</Text>

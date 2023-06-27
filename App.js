@@ -18,8 +18,9 @@ export default function App() {
   const [storedFavoris, setterFavoris] = useState([]);
   const [bottomSheetContent, setBottomSheetContent] = useState([]);
   const [destination, setDestination] = useState([]);
+  const [actualPosition, setActualPosition] = useState([]);
+  const [bottomSheetPositions, setBottomSheetPositions] = useState([18, 100]);
 
-  console.log("AAAAAAAAAAAAAAAAA")
 
   const setStoredAddresses = (data) => {
     setAsyncStoredAddresses(data).then(setterAddresses);
@@ -34,11 +35,9 @@ export default function App() {
     const init = async () => {
       // setAsyncStoredAddresses([] );
     const sa = await getAsyncStoredAddresses();
-    console.log("sa",sa);
     setterAddresses(sa);
 
     const sf = await getAsyncFavoris();
-    console.log("sf",sf);
     setterFavoris(sf);
     };
 
@@ -59,23 +58,29 @@ export default function App() {
   const getBottomSheetContent = () => {
     switch(bottomSheetContent) {
       case "results":
-        return <ItinaryResultsScreen place={destination} setBottomSheetContent={setBottomSheetContent}/>;
+        return <ItinaryResultsScreen actualPosition={actualPosition} to={destination} setBottomSheetContent={setBottomSheetContent}/>;
       default:
         return <HomeScreen functionToCall={searchPlace}/>;
     }
   }
 
   const searchPlace = (place) => {
-    console.log("On cherche à aller à " + place);
+    console.log("On cherche à aller à " + place.name);
+    console.log(bottomSheetPositions);
     setDestination(place);
     setBottomSheetContent("results");
   };
+
+  const recoverLocation = (position) => {
+    setActualPosition(position);
+  }
+  
   return (
     <Context.Provider value={value}>
       <GestureHandlerRootView style={{ flex: 1, backgroundColor: 'white' }} >
-        <Map style={{ position: 'absolute', top: 0, width: '100%', height: '100%' }} />
+        <Map style={{ position: 'absolute', top: 0, width: '100%', height: '100%' }} sendLocation={recoverLocation}/>
         <QuickButton onPressFunction={openOrClosePreferences} image={require('@assets/menu-trigger.png')}/> 
-        <BottomSheet stopPositionsInPercent={[18, 100]} >        
+        <BottomSheet stopPositionsInPercent={bottomSheetPositions} >        
          {getBottomSheetContent()}
         </BottomSheet>
         <Modal 

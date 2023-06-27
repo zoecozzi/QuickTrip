@@ -3,9 +3,9 @@ import MapView  from 'react-native-maps';
 import { StyleSheet, View } from 'react-native';
 import * as Location from 'expo-location';
 
-const API_KEY = 'ba669a36-4c23-4aeb-844e-6bf9fe20915a'; // Remplacez par votre clé d'API navitia.io
+const API_KEY = 'bd2f4c93-b1a4-44ff-a433-4f2b3ed0c2e0'; // Remplacez par votre clé d'API navitia.io
 
-export default function Map() {
+export default function Map({sendLocation}) {
   const [userLocation, setUserLocation] = useState(null);
 
   useEffect(() => {
@@ -20,6 +20,9 @@ export default function Map() {
 
         const location = await Location.getCurrentPositionAsync();
         const { latitude, longitude } = location.coords;
+        console.log("Coordonnes DE LA POSITION : ");
+        console.log(location.coords);
+        sendLocation(location);
         setUserLocation({ latitude, longitude });
       } catch (error) {
         console.log('Erreur de localisation :', error);

@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Image, Text, View, TouchableOpacity, Modal, FlatList } from 'react-native';
 import styles from '../styles/icon-transport-display.scss';
 import TrafficInfo from './traficInfo';
+import { stripHtmlTags } from '../util/htmlUtils';
+import { decode } from 'he';
 
 export const icons = [
   { name: 'm1', lineCode: 'line%3AIDFM%3AC01371', path: require('../assets/transports/Metro/M1.png') },
@@ -41,7 +43,8 @@ const IconMetroDisplay = ({handleSelectedIconMetro}) => {
     <View style={styles.iconList}>
       {icons.map((icon, iconIndex) => {
 
-      const { hasDisruptions } = TrafficInfo({ lineCode: icon.lineCode });
+      const { hasDisruptions } = TrafficInfo({ lineCode: icon.lineCode })
+
       const { statusTraffic } = TrafficInfo({ lineCode: icon.lineCode });
       const selected = selectedIconIndex === iconIndex;
 
@@ -62,23 +65,41 @@ const IconMetroDisplay = ({handleSelectedIconMetro}) => {
               onRequestClose={handleCloseModal}
               animationType="slide"
             >
-              <View>
-                <Text>Informations sur les perturbations</Text>
+              <View style={styles.listPerturbation}>
+                <Text style={styles.titrePerturbation}>Informations sur les perturbations</Text>
                 <FlatList
+
+                  style={
+                    styles.ListeContainer}
                   data={statusTraffic}
                   renderItem={({ item }) => (
-                  <View>
-                      <Text>Status: {item.status}</Text>
-                      <Text>Cause: {item.cause}</Text>
-                      <Text>Severity: {item.severity.name}</Text>
-                      <Text>Message: {item.messages.map((message) => message.text)}</Text>
-                  </View>
+                    <View style={
+                      styles.listePerturbationContainer}>
+                        <View style={styles.blocProbleme}>
+                      <Text style={styles.titleProbleme}>Status</Text>
+                      <Text style={
+                        styles.perturbationContainer}>{item.status}</Text>
+                        </View>
+                        <View style={styles.blocProbleme}>
+                      <Text style={styles.titleProbleme}>Cause </Text>
+                      <Text style={
+                        styles.perturbationContainer}>{item.cause}</Text>
+                        </View>
+                      <View style={styles.blocProbleme}>
+                        <Text style={styles.titleProbleme}>Message </Text>
+                        <Text style={styles.perturbationContainer}>{item.messages.map((message) => decode(stripHtmlTags(message.text))).join('')}</Text>
+                      </View>
+
+                    </View>
                   )}
-                 keyExtractor={(item, index) => index.toString()}
+                  keyExtractor={(item, index) => index.toString()}
                 />
-                <TouchableOpacity onPress={handleCloseModal}>
-                  <Text>Fermer</Text>
-                </TouchableOpacity>
+                <View style={styles.displayCloseButton}>
+                  <TouchableOpacity onPress={handleCloseModal} style={
+                    styles.closeButton}>
+                    <Text >Fermer</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </Modal>
 

@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Image, Text, View, TouchableOpacity, Modal, FlatList } from 'react-native';
 import styles from '../styles/icon-transport-display.scss';
 import TrafficInfo from './traficInfo';
+import { stripHtmlTags } from '../util/htmlUtils';
+import { decode } from 'he';
 
 export const icons = [
   { name: 'LigneH', lineCode: 'line%3AIDFM%3AC01737', path: require('../assets/transports/Ligne/LIGNEH.png') },
@@ -14,7 +16,7 @@ export const icons = [
   { name: 'LigneU', lineCode: 'line%3AIDFM%3AC01741', path: require('../assets/transports/Ligne/LIGNEU.png') },
 ];
 
-const IconLigneDisplay = ({handleSelectedIconLigne}) => {
+const IconLigneDisplay = ({ handleSelectedIconLigne }) => {
   const [selectedIconIndex, setSelectedIconIndex] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -32,9 +34,9 @@ const IconLigneDisplay = ({handleSelectedIconLigne}) => {
     <View style={styles.iconList}>
       {icons.map((icon, iconIndex) => {
 
-      const { hasDisruptions } = TrafficInfo({ lineCode: icon.lineCode });
-      const { statusTraffic } = TrafficInfo({ lineCode: icon.lineCode });
-      const selected = selectedIconIndex === iconIndex;
+        const { hasDisruptions } = TrafficInfo({ lineCode: icon.lineCode });
+        const { statusTraffic } = TrafficInfo({ lineCode: icon.lineCode });
+        const selected = selectedIconIndex === iconIndex;
 
         return (
           <TouchableOpacity
@@ -53,23 +55,41 @@ const IconLigneDisplay = ({handleSelectedIconLigne}) => {
               onRequestClose={handleCloseModal}
               animationType="slide"
             >
-              <View>
-                <Text>Informations sur les perturbations</Text>
+              <View style={styles.listPerturbation}>
+                <Text style={styles.titrePerturbation}>Informations sur les perturbations</Text>
                 <FlatList
+
+                  style={
+                    styles.ListeContainer}
                   data={statusTraffic}
                   renderItem={({ item }) => (
-                  <View>
-                      <Text>Status: {item.status}</Text>
-                      <Text>Cause: {item.cause}</Text>
-                      <Text>Severity: {item.severity.name}</Text>
-                      <Text>Message: {item.messages.map((message) => message.text)}</Text>
-                  </View>
+                    <View style={
+                      styles.listePerturbationContainer}>
+                        <View style={styles.blocProbleme}>
+                      <Text style={styles.titleProbleme}>Status</Text>
+                      <Text style={
+                        styles.perturbationContainer}>{item.status}</Text>
+                        </View>
+                        <View style={styles.blocProbleme}>
+                      <Text style={styles.titleProbleme}>Cause </Text>
+                      <Text style={
+                        styles.perturbationContainer}>{item.cause}</Text>
+                        </View>
+                      <View style={styles.blocProbleme}>
+                        <Text style={styles.titleProbleme}>Message </Text>
+                        <Text style={styles.perturbationContainer}>{item.messages.map((message) => decode(stripHtmlTags(message.text))).join('')}</Text>
+                      </View>
+
+                    </View>
                   )}
-                 keyExtractor={(item, index) => index.toString()}
+                  keyExtractor={(item, index) => index.toString()}
                 />
-                <TouchableOpacity onPress={handleCloseModal}>
-                  <Text>Fermer</Text>
-                </TouchableOpacity>
+                <View style={styles.displayCloseButton}>
+                  <TouchableOpacity onPress={handleCloseModal} style={
+                    styles.closeButton}>
+                    <Text >Fermer</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </Modal>
 

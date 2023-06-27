@@ -16,7 +16,6 @@ const Main = ({ close, section }) => {
   };
 
   const handleClean = async (id) => {
-    console.log("Saluuuuuuut" + id);
     const favorisCopy = [...storedFavoris];
     favorisCopy.splice(id, 1);
     setStoredFavoris(favorisCopy);
@@ -42,7 +41,7 @@ const Main = ({ close, section }) => {
     );
   };
 
-  const favorisContent = storedFavoris.length !== 0 && (storedFavoris.map((item, index) => {
+  const favorisContent = Array.isArray(storedFavoris) && storedFavoris.length !== 0 ? storedFavoris.map((item, index) => {
     return (
       <FavoritesItem
         color={item.selectedColor}
@@ -53,8 +52,8 @@ const Main = ({ close, section }) => {
         city={item.city}
       />
     );
-  }));
-
+  }) : null;
+  
   return (
     <View style={styles.favoritesList}>
       { favorisContent } 
