@@ -1,11 +1,12 @@
-import { FlatList, StyleSheet, Text, Button, TextInput, View } from 'react-native';
+import { FlatList, Text, Button, Image, View, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
 import { Context, API_KEY, API_URL} from '../lib/context';
-import * as Location from 'expo-location';
+import styles from '@styles/itinary-result-screen.scss';
 
 import Search from "../components/search";
+import { BackgroundImage } from 'react-native-elements/dist/config';
 
-export default function ItinaryResults({ from, actualPosition, to, setBottomSheetContent }) {
+export default function ItinaryResults({ from, actualPosition, to, setBottomSheetContent, setItinaryToView }) {
     const [searchFrom, setSearchFrom] = useState(from);
     const [searchTo, setSearchTo] = useState(to);
     const [searchResults, setSearchResults] = useState([]);
@@ -21,9 +22,7 @@ export default function ItinaryResults({ from, actualPosition, to, setBottomShee
     const findJourneys = async () => {
 
       try {
-        console.log(actualPosition);
-        let url = `${API_URL}/coverage/fr-idf/journeys?from=${actualPosition.coords.longitude};${actualPosition.coords.latitude}&to=${getCoordinates(to).lon};${getCoordinates(to).lat}`;
-        console.log("URL : " + url);
+        let url = `${API_URL}/coverage/fr-idf/journeys?from=${actualPosition.coords.longitude};${actualPosition.coords.latitude}&to=${getCoordinates(searchTo).lon};${getCoordinates(searchTo).lat}`;
         const response = await fetch(url, {
           headers: {
             Authorization: API_KEY,
@@ -64,25 +63,60 @@ export default function ItinaryResults({ from, actualPosition, to, setBottomShee
     const renderJourneyItem = ({ item }) => {
       const { sections } = item;
       return (
-        <View style={styles.journeyItem}>
-          <Text>Itinéraire</Text>
-          {sections.map((section, index) => {
-            if (section.type === 'waiting') {
-              return null; // Ne rend pas la section si le type est "waiting"
-            }
-    
-            return (
-              <View key={index}>
-                <Text>Étape {index + 1}</Text>
-                <Text>
-                  {section.mode}{section.transfer_type}{section.display_informations?.commercial_mode}{section.display_informations?.code} {'>'} {section.display_informations?.direction} {section.from && <Text>from: {section.from.name}</Text>} {section.to && <Text>To: {section.to.name}</Text>} during {Math.floor(section.duration / 60)} minutes
-                </Text>
-                {/* Ajoutez d'autres informations spécifiques à chaque section ici */}
-              </View>
-            );
-          })}
-        </View>
+        <TouchableOpacity onPress={() => setItinaryToView(sections)} style={styles.journeyItem}>
+          <Text style={{ flexDirection: 'row' }}>
+            {sections.map((section, index) => {
+              if (section.type === 'waiting') {
+                return null; 
+              }
+              const minutes = Math.floor(section.duration / 60);
+              const seconds = section.duration % 60;
+              const durationString = minutes + "." + seconds;
+              const isLastSection = index === sections.length - 1;
+              const isWalkingSection = section.mode === 'walking' || section.transfer_type === 'walking';
+              const displayInformations = section.display_informations;
+              const code = displayInformations?.code;
+              const color = displayInformations?.color;
+              const commercialMode = displayInformations?.commercial_mode;
+              return (
+                <React.Fragment key={index}>
+                  {isWalkingSection ? (
+                    <Image
+                      source={require('assets/favories/pedestrian.png')}
+                      style={{ width: 30, height: 30, marginRight: 5 }}
+                    />
+                  ) : null}
+                  {isWalkingSection ? (
+                    <Text style={{ fontWeight: 'bold' }}>{durationString}</Text>
+                  ) : (
+                    <Text>{section.mode}</Text>
+                  )}
+                  {code && (
+                  <View style={{ borderRadius: 15, backgroundColor: `#${color}`, padding: 5, marginRight: 5 }}>
+                    <Text style={{ color: 'white', fontWeight: 'bold' }}>{code}</Text>
+                  </View>
+                )}
+                  {section.transfer_type !== 'walking' && section.transfer_type}
+                  {section.display_informations?.commercial_mode !== 'walking'}
+                  {section.display_informations?.code}
+                  {!isLastSection && <Text style={{ fontWeight: 'bold' }}></Text>}
+                </React.Fragment>
+              );
+            })}
+          </Text>
+          {/* Ajoutez d'autres informations spécifiques à chaque section ici */}
+        </TouchableOpacity>
       );
+      
+      
+      
+      
+      
+      
+         
+      
+      
+      
     };
 
     const updateDeparture = ({ place }) => {
@@ -95,15 +129,11 @@ export default function ItinaryResults({ from, actualPosition, to, setBottomShee
 
     return (
         <View>
-            <Search functionToCall={updateDeparture} defaultValue={"Ma position"}/>
-            <Search functionToCall={updateArrival} defaultValue={to.name}/>
-            <Text>{searchResults && searchResults.length} trajets trouvés</Text>
-            <Text>{selectedAddress && selectedAddress.name}</Text>
-            <Text>Vue résultats de recherche pour {to.name}</Text>
+            <Search functionToCall={updateDeparture} defaultValue={"Ma position"} inputStyle={{ backgroundColor: 'red' }}/>
+            <Search functionToCall={updateArrival} defaultValue={searchTo.name}/>
             <Button title="Retour" onPress={setBottomSheetContent}/>
+            <Text>{selectedAddress && selectedAddress.name}</Text>
             <View style={styles.container}>
-              <Text>Trouver un itinéraire</Text>
-
               {searchResults.length > 0 ? (
                 <FlatList
                   data={searchResults}
@@ -113,114 +143,9 @@ export default function ItinaryResults({ from, actualPosition, to, setBottomShee
               ) : (
                 <Text>Aucun itinéraire trouvé</Text>
               )}
+
+              <Button title="Retour" onPress={setBottomSheetContent}/>
             </View>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-    margin: 20,
-  },
-  journeyItem: {
-    borderBottomWidth: 1,
-    borderColor: 'grey',
-    paddingBottom: 10,
-    marginBottom: 10,
-  },
-});
-
-
-
-/*import { FlatList, StyleSheet, Text, Button, TextInput, View } from 'react-native';
-import React, { useState, useEffect, useContext } from 'react';
-import { Context, API_KEY, API_URL} from '../lib/context';
-import * as Location from 'expo-location';
-
-import Search from "../components/search";
-
-export default function ItinaryResults({ from, actualPosition, to, setBottomSheetContent }) {
-    const [searchFrom, setSearchFrom] = useState(from);
-    const [searchTo, setSearchTo] = useState(to);
-    const [searchResults, setSearchResults] = useState([]);
-  
-    const { setStoredAddresses, storedAddresses } = useContext(Context);
-  
-    const { selectedAddress } = useContext(Context);
-  
-    const findJourneys = async () => {
-
-      try {
-        console.log(actualPosition);
-        let url = `${API_URL}/coverage/fr-idf/journeys?from=${actualPosition.coords.longitude};${actualPosition.coords.latitude}&to=${getCoordinates(to).lon};${getCoordinates(to).lat}`;
-        console.log("URL : " + url);
-        const response = await fetch(url, {
-          headers: {
-            Authorization: API_KEY,
-          },
-        });
-        const data = await response.json();
-        setSearchResults(data.journeys);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    function getCoordinates(obj) {
-      if ((typeof obj.address !== 'undefined') && obj.address.coord) {
-        return {
-          lat: obj.address.coord.lat,
-          lon: obj.address.coord.lon
-        };
-      } else if ((typeof obj.stop_area !== 'undefined') && obj.stop_area.coord) {
-        return {
-          lat: obj.stop_area.coord.lat,
-          lon: obj.stop_area.coord.lon
-        };
-      } else if ((typeof obj.administrative_region !== 'undefined') && obj.administrative_region.coord) {
-        return {
-          lat: obj.administrative_region.coord.lat,
-          lon: obj.administrative_region.coord.lon
-        };
-      } else {
-        return null;
-      }
-    }
-  
-  
-    useEffect(() => {
-      findJourneys();
-    }, [searchFrom, searchTo]);
-  
-    // const selectedAddressData = searchResults.find(
-    //   (place) => place.name === selectedAddress
-    // );
-  
-    const renderItem = ({ item }) => {
-      return <Journey journey={item} />;
-    };
-
-    const updateDeparture = ({ place }) => {
-      console.log("Départ: " + place)
-    };
-  
-    const updateArrival = ({ place }) => {
-      console.log("Arrivé: " + place)
-    };
-
-    return (
-        <View>
-            <Search functionToCall={updateDeparture} defaultValue={"Ma position"}/>
-            <Search functionToCall={updateArrival} defaultValue={to.name}/>
-            <Text>{searchResults && searchResults.length} trajets trouvés</Text>
-            <Text>{selectedAddress && selectedAddress.name}</Text>
-            <Text>Vue résultats de recherche pour {to.name}</Text>
-            <Button title="Retour" onPress={setBottomSheetContent}/>
-        </View>
-    );
-}*/

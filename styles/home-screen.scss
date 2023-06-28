@@ -1,0 +1,65 @@
+@import "graphic-charter";
+
+$iconSize: 60;
+
+.container {
+    width: 100%;
+    gap: 16px;  
+}
+
+.openPreferencesButton {
+    top: 50px;
+    right: 50px;
+    position: absolute;
+    background-color: red;
+    visibility: hidden
+}
+
+.blocListTitle {
+    width: 100%;
+    padding: 5px 0 2px 0;
+    text-align: left;
+}
+
+.blocList {
+    width: 100%;
+    background-color: $background-color;
+    height: 125px;
+    padding: 5px;
+    border: $border;
+    border-radius: $border-radius;
+}
+
+.blocListElement {
+    width: 100%;
+    padding: 10px;
+}
+
+.favoritesIcon {
+    width: 100%;
+    height: 100%;
+}
+
+.favoritesItem {
+    padding: 10px;
+    margin-top: 10px;}
+
+.favoritesContainer {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.favoritesIconContainer {
+    width: $iconSize;
+    height: $iconSize;
+    padding: 15px;
+    border-radius: $iconSize + px;
+}
+
+.favoritesText{
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    padding-top: 5px;
+}

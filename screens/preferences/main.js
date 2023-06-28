@@ -6,8 +6,9 @@ import styles from "../../styles/preferences.scss";
 const Main = ({ close, section }) => {
   const { storedFavoris, setStoredFavoris } = useContext(Context);
 
-  console.log(storedFavoris);
+  
   useEffect(() => {
+    console.log("Yesssss");
     console.log(storedFavoris);
   }, [storedFavoris]);
 
@@ -21,7 +22,7 @@ const Main = ({ close, section }) => {
     setStoredFavoris(favorisCopy);
   };
 
-  const FavoritesItem = ({ color, index, imagePath, name, street, city }) => {
+  const FavoritesItem = ({ color, index, imagePath, name, street }) => {
     return (
       <View style={styles.favoritesItem}>
         <View style={[styles.favoritesIconContainer, {backgroundColor: color}]}>
@@ -42,6 +43,8 @@ const Main = ({ close, section }) => {
   };
 
   const favorisContent = Array.isArray(storedFavoris) && storedFavoris.length !== 0 ? storedFavoris.map((item, index) => {
+
+    console.log(item)
     return (
       <FavoritesItem
         color={item.selectedColor}

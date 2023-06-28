@@ -39,7 +39,7 @@ const Search = ({functionToCall, defaultValue}) => {
       });
       const data = await response.json();
       setSearchResults(data.places);
-      if(search.length!=0&&isFocused)
+      if(search.length!=0 && isFocused)
         setShowFlatList(true);
       else{
         setShowFlatList(false);
@@ -70,8 +70,9 @@ const Search = ({functionToCall, defaultValue}) => {
       
       await setStoredAddresses(newList);
       await setSearch(address.name);
-      setShowFlatList(false);
-      functionToCall(address);
+      await setShowFlatList(false);
+      await functionToCall(address);
+      console.log(newList);
     } catch (error) {
       console.error(error);
     }

@@ -20,8 +20,6 @@ export default function Map({sendLocation}) {
 
         const location = await Location.getCurrentPositionAsync();
         const { latitude, longitude } = location.coords;
-        console.log("Coordonnes DE LA POSITION : ");
-        console.log(location.coords);
         sendLocation(location);
         setUserLocation({ latitude, longitude });
       } catch (error) {
