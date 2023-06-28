@@ -13,8 +13,6 @@ import styles from '@styles/preferences.scss'
 const PreferencesScreen = ({ close }) => {
 
     const [section, setSection] = useState(1);
-  
-    console.log(section)
 
     return (
       <SafeAreaView style={{ flex: 1 }}>

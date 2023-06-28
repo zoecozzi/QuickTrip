@@ -14,18 +14,15 @@ export default function Map({sendLocation}) {
       try {
         const { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
-          console.log('Permission de localisation refusée');
           return;
         }
 
         const location = await Location.getCurrentPositionAsync();
         const { latitude, longitude } = location.coords;
-        console.log("Coordonnes DE LA POSITION : ");
-        console.log(location.coords);
         sendLocation(location);
         setUserLocation({ latitude, longitude });
       } catch (error) {
-        console.log('Erreur de localisation :', error);
+        console.error('Erreur de localisation :', error);
       }
     };
 

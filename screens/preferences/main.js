@@ -6,10 +6,9 @@ import styles from "../../styles/preferences.scss";
 const Main = ({ close, section }) => {
   const { storedFavoris, setStoredFavoris } = useContext(Context);
 
-  console.log(storedFavoris);
-  useEffect(() => {
-    console.log(storedFavoris);
-  }, [storedFavoris]);
+  // useEffect(() => {
+  //   console.log(storedFavoris);
+  // }, [storedFavoris]);
 
   const handleAddFavorite = () => {
     section(2);
@@ -44,6 +43,7 @@ const Main = ({ close, section }) => {
   const favorisContent = Array.isArray(storedFavoris) && storedFavoris.length !== 0 ? storedFavoris.map((item, index) => {
     return (
       <FavoritesItem
+        key={index}
         color={item.selectedColor}
         index={index}
         imagePath={item.selectedImage}

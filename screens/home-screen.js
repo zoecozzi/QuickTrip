@@ -24,8 +24,6 @@ export default function HomeScreen({functionToCall}) {
     setAsyncStoredAddresses(data).then(setterAddresses);
   };
 
-  console.log("storedFavoris",storedFavoris);
-
   const setStoredFavoris = (data) => {
     setAsyncFavoris(data).then(setterFavoris);
   };

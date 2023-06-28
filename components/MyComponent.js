@@ -18,7 +18,6 @@ const MyComponent = () => {
         }
       );
       const data = await response.json();
-      console.log(data);
       setSearchResults(data.journeys || []);
     } catch (error) {
       console.error(error);

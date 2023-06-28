@@ -16,12 +16,10 @@ const Search = ({functionToCall, defaultValue}) => {
 
   const handleFocus = () => {
     setIsFocused(true);
-    console.log("OK ON RENTRE");
   };
 
   const handleBlur = () => {
     setIsFocused(false);
-    console.log("OK ON SORT");
     setShowFlatList(false);
   };
 
