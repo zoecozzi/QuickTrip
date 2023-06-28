@@ -1,9 +1,10 @@
-import { FlatList, StyleSheet, Text, Button, TextInput, View, TouchableOpacity } from 'react-native';
+import { FlatList, Text, Button, Image, View, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
 import { Context, API_KEY, API_URL} from '../lib/context';
-import * as Location from 'expo-location';
+import styles from '@styles/itinary-result-screen.scss';
 
 import Search from "../components/search";
+import { BackgroundImage } from 'react-native-elements/dist/config';
 
 export default function ItinaryResults({ from, actualPosition, to, setBottomSheetContent, setItinaryToView }) {
     const [searchFrom, setSearchFrom] = useState(from);
@@ -62,24 +63,35 @@ export default function ItinaryResults({ from, actualPosition, to, setBottomShee
     const renderJourneyItem = ({ item }) => {
       const { sections } = item;
       return (
-        <TouchableOpacity onPress={() => setItinaryToView(sections)} style={styles.journeyItem}>
+        <View style={styles.journeyItem}>
           <Text>Itinéraire</Text>
           {sections.map((section, index) => {
             if (section.type === 'waiting') {
               return null; // Ne rend pas la section si le type est "waiting"
             }
+    
             return (
               <View key={index}>
                 <Text>Étape {index + 1}</Text>
                 <Text>
-                  {section.mode}{section.transfer_type}{section.display_informations?.commercial_mode}{section.display_informations?.code} {'>'} {section.display_informations?.direction} {section.from && <Text>from: {section.from.name}</Text>} {section.to && <Text>To: {section.to.name}</Text>} during {Math.floor(section.duration / 60)} minutes
+                  {section.mode}{section.transfer_type}{sectioisplay_informations?.commercial_mode}{section.display_informations?.code} {'>'} {section.display_informations?.direction} {section.from && <Text>from: {section.from.name}</Text>} {section.to && <Text>To: {section.to.name}</Text>} during {Math.floor(section.duration / 60)} minutes
                 </Text>
                 {/* Ajoutez d'autres informations spécifiques à chaque section ici */}
               </View>
             );
           })}
-        </TouchableOpacity>
+        </View>
       );
+      
+      
+      
+      
+      
+      
+         
+      
+      
+      
     };
 
     const updateDeparture = ({ place }) => {
@@ -92,14 +104,11 @@ export default function ItinaryResults({ from, actualPosition, to, setBottomShee
 
     return (
         <View>
-            <Search functionToCall={updateDeparture} defaultValue={"Ma position"}/>
+            <Search functionToCall={updateDeparture} defaultValue={"Ma position"} inputStyle={{ backgroundColor: 'red' }}/>
             <Search functionToCall={updateArrival} defaultValue={searchTo.name}/>
-            <Text>{searchResults && searchResults.length} trajets trouvés</Text>
-            <Text>{selectedAddress && selectedAddress.name}</Text>
-            <Text>Vue résultats de recherche pour {searchTo.name}</Text>
             <Button title="Retour" onPress={setBottomSheetContent}/>
+            <Text>{selectedAddress && selectedAddress.name}</Text>
             <View style={styles.container}>
-              <Text>Trouver un itinéraire</Text>
               {searchResults.length > 0 ? (
                 <FlatList
                   data={searchResults}
@@ -109,25 +118,9 @@ export default function ItinaryResults({ from, actualPosition, to, setBottomShee
               ) : (
                 <Text>Aucun itinéraire trouvé</Text>
               )}
+
+              <Button title="Retour" onPress={setBottomSheetContent}/>
             </View>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-    margin: 20,
-  },
-  journeyItem: {
-    borderBottomWidth: 1,
-    borderColor: 'grey',
-    paddingBottom: 10,
-    marginBottom: 10,
-  },
-});
-

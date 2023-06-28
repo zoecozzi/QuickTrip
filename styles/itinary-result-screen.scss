@@ -1,0 +1,14 @@
+@import "graphic-charter.scss";
+
+$iconSize: 60;
+$preferences-padding: 90px 30px 60px 30px;
+
+  .journeyItem {
+    border-width: 1px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    border-color: grey;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }

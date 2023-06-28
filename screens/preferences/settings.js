@@ -17,18 +17,31 @@ const Setting = ({ close, section }) => {
     section(2);
   };
 
+  const getCoordinates = (obj) => {
+    if ((typeof obj.address !== 'undefined') && obj.address.coord) {
+      return {
+        lat: obj.address.coord.lat,
+        lon: obj.address.coord.lon
+      };
+    } else if ((typeof obj.stop_area !== 'undefined') && obj.stop_area.coord) {
+      return {
+        lat: obj.stop_area.coord.lat,
+        lon: obj.stop_area.coord.lon
+      };
+    } else if ((typeof obj.administrative_region !== 'undefined') && obj.administrative_region.coord) {
+      return {
+        lat: obj.administrative_region.coord.lat,
+        lon: obj.administrative_region.coord.lon
+      };
+    } else {
+      return null;
+    }
+  }
+
   const handleButtonClick = async () => {
 
-    console.log(storedAddresses[storedAddresses.length])
+    let adresse = storedAddresses[storedAddresses.length - 1].name;
 
-    let adresse = storedAddresses[storedAddresses.length - 1].name
-    // let ville = storedAddresses[storedAddresses.length - 1]?.address.administrative_regions[storedAddresses[storedAddresses.length - 1].address.administrative_regions.length - 1].name;
-    // let codePostal = storedAddresses[storedAddresses.length - 1]?.address.administrative_regions[storedAddresses[storedAddresses.length - 1].address.administrative_regions.length - 1].zip_code;
-    // let city;
-
-    // if(codePostal !== undefined) {
-    //    city = codePostal + " " + ville;
-    // }
     let newList = [];
     if (storedFavoris?.length > 0) newList = [...storedFavoris];
 
@@ -37,7 +50,7 @@ const Setting = ({ close, section }) => {
       selectedImage: selectedImage,
       nameFavoris: nameFavoris,
       adresse: adresse,
-      // city: city,
+      data: storedAddresses[storedAddresses.length - 1]
     });
 
     try {
