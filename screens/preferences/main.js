@@ -6,7 +6,6 @@ import styles from "../../styles/preferences.scss";
 const Main = ({ close, section }) => {
   const { storedFavoris, setStoredFavoris } = useContext(Context);
 
-  
   useEffect(() => {
     console.log("Yesssss");
     console.log(storedFavoris);
@@ -47,6 +46,7 @@ const Main = ({ close, section }) => {
     console.log(item)
     return (
       <FavoritesItem
+        key={index}
         color={item.selectedColor}
         index={index}
         imagePath={item.selectedImage}

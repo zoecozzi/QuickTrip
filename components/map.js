@@ -14,7 +14,6 @@ export default function Map({sendLocation}) {
       try {
         const { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
-          console.log('Permission de localisation refusée');
           return;
         }
 
@@ -23,7 +22,7 @@ export default function Map({sendLocation}) {
         sendLocation(location);
         setUserLocation({ latitude, longitude });
       } catch (error) {
-        console.log('Erreur de localisation :', error);
+        console.error('Erreur de localisation :', error);
       }
     };
 

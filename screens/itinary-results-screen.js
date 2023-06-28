@@ -63,49 +63,24 @@ export default function ItinaryResults({ from, actualPosition, to, setBottomShee
     const renderJourneyItem = ({ item }) => {
       const { sections } = item;
       return (
-        <TouchableOpacity onPress={() => setItinaryToView(sections)} style={styles.journeyItem}>
-          <Text style={{ flexDirection: 'row' }}>
-            {sections.map((section, index) => {
-              if (section.type === 'waiting') {
-                return null; 
-              }
-              const minutes = Math.floor(section.duration / 60);
-              const seconds = section.duration % 60;
-              const durationString = minutes + "." + seconds;
-              const isLastSection = index === sections.length - 1;
-              const isWalkingSection = section.mode === 'walking' || section.transfer_type === 'walking';
-              const displayInformations = section.display_informations;
-              const code = displayInformations?.code;
-              const color = displayInformations?.color;
-              const commercialMode = displayInformations?.commercial_mode;
-              return (
-                <React.Fragment key={index}>
-                  {isWalkingSection ? (
-                    <Image
-                      source={require('assets/favories/pedestrian.png')}
-                      style={{ width: 30, height: 30, marginRight: 5 }}
-                    />
-                  ) : null}
-                  {isWalkingSection ? (
-                    <Text style={{ fontWeight: 'bold' }}>{durationString}</Text>
-                  ) : (
-                    <Text>{section.mode}</Text>
-                  )}
-                  {code && (
-                  <View style={{ borderRadius: 15, backgroundColor: `#${color}`, padding: 5, marginRight: 5 }}>
-                    <Text style={{ color: 'white', fontWeight: 'bold' }}>{code}</Text>
-                  </View>
-                )}
-                  {section.transfer_type !== 'walking' && section.transfer_type}
-                  {section.display_informations?.commercial_mode !== 'walking'}
-                  {section.display_informations?.code}
-                  {!isLastSection && <Text style={{ fontWeight: 'bold' }}></Text>}
-                </React.Fragment>
-              );
-            })}
-          </Text>
-          {/* Ajoutez d'autres informations spécifiques à chaque section ici */}
-        </TouchableOpacity>
+        <View style={styles.journeyItem}>
+          <Text>Itinéraire</Text>
+          {sections.map((section, index) => {
+            if (section.type === 'waiting') {
+              return null; // Ne rend pas la section si le type est "waiting"
+            }
+    
+            return (
+              <View key={index}>
+                <Text>Étape {index + 1}</Text>
+                <Text>
+                  {section.mode}{section.transfer_type}{sectioisplay_informations?.commercial_mode}{section.display_informations?.code} {'>'} {section.display_informations?.direction} {section.from && <Text>from: {section.from.name}</Text>} {section.to && <Text>To: {section.to.name}</Text>} during {Math.floor(section.duration / 60)} minutes
+                </Text>
+                {/* Ajoutez d'autres informations spécifiques à chaque section ici */}
+              </View>
+            );
+          })}
+        </View>
       );
       
       

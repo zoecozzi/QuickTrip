@@ -11,13 +11,13 @@ import QuickButton from './components/button';
 import PreferencesScreen from './screens/preferences/navigation';
 import HomeScreen from './screens/home-screen';
 import ItinaryResultsScreen from './screens/itinary-results-screen';
+import ItinaryScreen from './screens/itinary-screen';
 
 export default function App() {
   const [storedAddresses, setterAddresses] = useState([]);
   const [showPreferences, setShowPreferences] = useState(false);
   const [storedFavoris, setterFavoris] = useState([]);
   const [bottomSheetContent, setBottomSheetContent] = useState([]);
-  const [destination, setDestination] = useState([]);
   const [actualPosition, setActualPosition] = useState([]);
   const [bottomSheetPositions, setBottomSheetPositions] = useState([18, 100]);
 
@@ -55,21 +55,29 @@ export default function App() {
     setShowPreferences(!showPreferences);
   };
 
+  const [destination, setDestination] = useState();
+  const [itinary, setItinary] = useState();
+
+  const searchPlace = (place) => {
+    setDestination(place);
+    setBottomSheetContent("results");
+  };
+
+  const setItinaryToView = (itinary) => {
+    setBottomSheetContent("itinary");
+    setItinary(itinary);
+  }
+
   const getBottomSheetContent = () => {
-    switch(bottomSheetContent) {
+    switch(bottomSheetContent){
       case "results":
-        return <ItinaryResultsScreen actualPosition={actualPosition} to={destination} setBottomSheetContent={setBottomSheetContent}/>;
+        return <ItinaryResultsScreen actualPosition={actualPosition} to={destination} setBottomSheetContent={setBottomSheetContent} setItinaryToView={setItinaryToView}/>;
+      case "itinary":
+        return <ItinaryScreen itinary={itinary} setBottomSheetContent={setBottomSheetContent}/>;
       default:
         return <HomeScreen functionToCall={searchPlace}/>;
     }
   }
-
-  const searchPlace = (place) => {
-    console.log("On cherche à aller à " + place.name);
-    console.log(bottomSheetPositions);
-    setDestination(place);
-    setBottomSheetContent("results");
-  };
 
   const recoverLocation = (position) => {
     setActualPosition(position);
