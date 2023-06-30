@@ -6,10 +6,10 @@ import styles from "../../styles/preferences.scss";
 const Main = ({ close, section }) => {
   const { storedFavoris, setStoredFavoris } = useContext(Context);
 
-  useEffect(() => {
-    console.log("Yesssss");
-    console.log(storedFavoris);
-  }, [storedFavoris]);
+  // useEffect(() => {
+  //   console.log("Yesssss");
+  //   console.log(storedFavoris);
+  // }, [storedFavoris]);
 
   const handleAddFavorite = () => {
     section(2);
@@ -42,8 +42,6 @@ const Main = ({ close, section }) => {
   };
 
   const favorisContent = Array.isArray(storedFavoris) && storedFavoris.length !== 0 ? storedFavoris.map((item, index) => {
-
-    console.log(item)
     return (
       <FavoritesItem
         key={index}

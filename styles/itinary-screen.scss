@@ -1,0 +1,114 @@
+@import "graphic-charter.scss";
+@import "itinary-result-screen.scss";
+
+$iconSize: 60;
+$preferences-padding: 90px 30px 60px 30px;
+
+
+
+.stageListItinaryScreen{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-right: 0px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100px;
+}
+
+.titreItinery{
+  width: 88%;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.itineryBlock{
+  background-color: white;
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 30px;
+}
+
+.stageContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+$stage-icon-size: 20px;
+
+.stageContainerImage{
+  width: 8%;
+  aspect-ratio: 1;
+  opacity: 0.7;
+  margin-top: 3px;
+}
+
+.stageContainerDetails{
+  width: 90%;
+}
+
+.grayBar{
+  background-color: #c6c6c6;
+  height: 3px;
+  border-radius: 2px;
+  width: 100%;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.grayBarWalking {
+  background-color: #c6c6c6;
+  height: 1px;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.totalDurationContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  height: 130px;
+  padding:15px;
+}
+
+.totalDurationText{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.buttonGo{
+  background-color: #E18C0B;
+  border-radius: 10px;
+  border: $border;
+  padding: 10px;
+  width: 75px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.textButtonGo{
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+}
+
+.walkTime{
+  color : black;
+  opacity: 0.57;
+}
+
+.instruction{
+  color: black;
+  font-weight: bold;
+  font-size: 16px;
+}

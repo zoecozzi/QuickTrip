@@ -60,11 +60,11 @@ const Trajet = ({from, to}) => {
   };
 
   const updateDeparture = ({ place }) => {
-    console.log("Départ: " + place)
+    // console.log("Départ: " + place)
   };
 
   const updateArrival = ({ place }) => {
-    console.log("Arrivé: " + place)
+    // console.log("Arrivé: " + place)
   };
 
   return (

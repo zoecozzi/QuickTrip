@@ -19,13 +19,18 @@ export default function Map({sendLocation}) {
 
         const location = await Location.getCurrentPositionAsync();
         const { latitude, longitude } = location.coords;
-        sendLocation(location);
+        const locationToSend = {
+          name: 'Ma position',
+          lat: latitude,
+          lon: longitude,
+        } 
+        sendLocation(locationToSend);
         setUserLocation({ latitude, longitude });
       } catch (error) {
         console.error('Erreur de localisation :', error);
       }
     };
-
+    
     getLocation();
   }, []);
 

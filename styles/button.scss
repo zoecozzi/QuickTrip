@@ -1,0 +1,12 @@
+@import "graphic-charter";
+
+$button-size: 35px;
+
+.button {
+    width: $button-size;
+    aspect-ratio: 1;
+    border-radius: $button-size;
+    background-color: white;
+    border: $border;
+    padding: $button-size * 0.15;
+}

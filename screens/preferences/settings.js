@@ -41,7 +41,6 @@ const Setting = ({ close, section }) => {
   const handleButtonClick = async () => {
 
     let adresse = storedAddresses[storedAddresses.length - 1].name;
-
     let newList = [];
     if (storedFavoris?.length > 0) newList = [...storedFavoris];
 
@@ -88,9 +87,9 @@ const Setting = ({ close, section }) => {
           />
         </View>
         <View style={styles.colorContainer}>
-          {colors.map((c) => (
+          {colors.map((c, index) => (
             <TouchableOpacity
-              key={c.name}
+              key={index}
               style={[styles.colorDot, { backgroundColor: c.code }]}
               onPress={() => handleColorSelect(c.code)}
             />

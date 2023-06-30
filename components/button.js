@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
+import styles from '@styles/button.scss';
 
-export default function QuickButton({onPressFunction, image}) {
-
+export default function Button({functionToCall, image}) {
     return (
-        <TouchableOpacity style={styles.button} onPress={onPressFunction}>
+        <TouchableOpacity style={styles.button} onPress={functionToCall}>
             <Image
                 style={{ width: '100%', height: '100%' }}
                 source={image}
@@ -12,14 +12,3 @@ export default function QuickButton({onPressFunction, image}) {
         </TouchableOpacity>
     );
 }
-
-const styles = StyleSheet.create({
-    button: {
-        width: 30,
-        height: 30,
-        position: 'absolute',
-        top: 50,
-        right: 25,
-        backgroundColor: 'transparent',
-    },
-})

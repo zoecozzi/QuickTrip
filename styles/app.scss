@@ -3,6 +3,18 @@
 
 $iconSize: 60;
 
+.preferencesButtonContainer {
+    position: absolute;
+    top:50px;
+    right: 25px;
+}
+
+.backButtonContainer {
+    position: absolute;
+    top:50px;
+    left: 25px;
+}
+
 .openPreferencesButton {
     top: 50px;
     right: 50px;

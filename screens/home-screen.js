@@ -6,6 +6,7 @@ import styles from '@styles/home-screen.scss';
 import { FlatList, Text, TouchableOpacity, Image } from 'react-native';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
+import Trafic from '@components/trafic';
 
 export default function HomeScreen({functionToCall}) {
   const { storedFavoris } = useContext(Context);
@@ -14,6 +15,7 @@ export default function HomeScreen({functionToCall}) {
   useEffect(() => {
   }, [storedFavoris]);
 
+  
   return (
     <SafeAreaView style={styles.container}>
         <Search functionToCall={functionToCall} defaultValue={""}/>
@@ -37,7 +39,7 @@ export default function HomeScreen({functionToCall}) {
         <Text style={styles.blocListTitle}>Récents</Text>
         <View style={styles.blocList}>
             <FlatList
-              data={storedAddresses.reverse()}
+              data={storedAddresses}
               keyExtractor={(index) => index.toString()}
               renderItem={({ item }) => 
               <TouchableOpacity
@@ -48,7 +50,7 @@ export default function HomeScreen({functionToCall}) {
             />
         </View>
         <Text style={styles.blocListTitle}>Trafic</Text>
-        {/* <Trafic/> */}
+        <Trafic/>
         <View >
         </View>
     </SafeAreaView>

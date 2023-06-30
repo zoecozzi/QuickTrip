@@ -14,19 +14,19 @@ const SearchAddress = ({ close, section }) => {
     };
 
     return (
-            <View style={styles.searchContainer}>
-                <Search functionToCall={handleEditFavorite} defaultValue={""}/>
-                <View style={styles.stageSelector}>
-                    <TouchableOpacity onPress={handleCancelAddFavorite}>
-                    <Text style={styles.stageSelectorCancelButton}>{'<'}  Annuler</Text>
-                    </TouchableOpacity>
-                    <Text style={styles.stepText}>Étape 1 sur 2</Text>
-                    <TouchableOpacity onPress={handleEditFavorite}>
-                    <Text style={styles.stageSelectorValidateButton}>Suivant  {'>'}</Text>
-                    </TouchableOpacity>
-                </View>
+        <View style={styles.searchContainer}>
+            <Search functionToCall={handleEditFavorite} defaultValue={""}/>
+            <View style={styles.stageSelector}>
+                <TouchableOpacity onPress={handleCancelAddFavorite}>
+                <Text style={styles.stageSelectorCancelButton}>{'<'}  Annuler</Text>
+                </TouchableOpacity>
+                <Text style={styles.stepText}>Étape 1 sur 2</Text>
+                <TouchableOpacity onPress={handleEditFavorite}>
+                <Text style={styles.stageSelectorValidateButton}>Suivant  {'>'}</Text>
+                </TouchableOpacity>
             </View>
-    );
+        </View>
+    );  
 }
 
 export default SearchAddress;

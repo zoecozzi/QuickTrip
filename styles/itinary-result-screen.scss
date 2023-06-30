@@ -3,12 +3,171 @@
 $iconSize: 60;
 $preferences-padding: 90px 30px 60px 30px;
 
-  .journeyItem {
-    border-width: 1px;
-    padding: 10px;
-    background-color: white;
-    border-radius: 10px;
-    border-color: grey;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-  }
+.globalContainer {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.backButtonContainer {
+  margin: 30px 0;
+}
+
+.searchContainer {
+  flex-basis: 88%;
+  display: flex;
+  align-items: flex-end;
+}
+
+
+$reverse-button-size: 40px;
+.reverseButton {
+  width: $reverse-button-size;
+  height: $reverse-button-size;
+  background-color: white;
+  border-radius: 100px;
+  border: $border;
+  margin-top: calc($reverse-button-size / -2);
+  margin-bottom: calc($reverse-button-size / -2);
+  margin-right: 10px;
+  padding: 10px;
+  z-index: 100; 
+}
+
+.reverseButtonImage {
+  width: 100%;
+  height: 100%;
+}
+
+.journeyItem {
+  border-width: 1px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+  border-color: grey;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px 15px;
+}
+
+.stageList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-basis: 70%;
+  align-items: center;
+  padding-right: 0px;
+}
+
+.itinaryTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+$walking-icon-size: 20px;
+.walking {
+  height: $walking-icon-size;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.walkingImage {
+  width: $walking-icon-size * 0.6;
+  height: $walking-icon-size;
+  opacity: 0.7;
+}
+
+.walkingText {
+  color: black;
+  font-weight: bold;
+  font-size: 13px;
+  opacity: 0.5;
+  margin-bottom: -2.5px;
+}
+
+$icon-size: 20px;
+.metro {
+  margin: 10px 0;
+  width: $icon-size;
+  height: $icon-size;
+  aspect-ratio: 1;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bus {
+  margin: 10px 0;
+  width: $icon-size;
+  height: $icon-size * 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rer {
+  margin: 10px 0;
+  width: $icon-size;
+  height: $icon-size;
+  aspect-ratio: 1;
+  border-radius: calc($icon-size / 4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tramway {
+  margin: 10px 0;
+  width: $icon-size;
+  height: $icon-size;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.metroText { 
+  text-align: center;
+  font-size: $icon-size * 0.85;
+  font-weight: bold;
+}
+
+.busText {
+  text-align: center;
+  font-size: $icon-size * 0.6;
+  font-weight: bold;
+}
+
+.rerText {
+  text-align: center;
+  font-size: $icon-size * 0.9;
+  font-weight: bold;
+}
+
+.tramwayText {
+  width: 100%;
+  text-align: center;
+  background-color: azure;
+  color: 'black'; 
+  text-align: center;
+  font-size: $icon-size * 0.75;
+  font-weight: bold;
+}
+
+.arrow {
+  width: 15px;
+  margin: 0 5px;
+  aspect-ratio: 1;
+  opacity: 0.2;
+}
